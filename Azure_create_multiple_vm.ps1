@@ -1,6 +1,6 @@
-﻿Set-AzureSubscription -SubscriptionName 'Free Trial' -CurrentStorageAccount 'icestorage01'
+﻿Set-AzureSubscription -SubscriptionName 'Free Trial' -CurrentStorageAccount 'icebabystorage01'
 
-$pwd = 'EICadmin2015!'
+$pwd = 'admin2015!'
 $user = 'demo01'
 
 
