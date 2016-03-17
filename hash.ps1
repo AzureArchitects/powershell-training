@@ -6,13 +6,15 @@ $output = @();
 foreach($entry in $computers) {
 	$info = Get-WmiObject -Class Win32_OperatingSystem -Computername $entry
 	$bios = Get-WmiObject -Class Win32_Bios -Computername $entry
-	
+	$environment = [System.Environment]::GetEnvironmentVariables();
+    
 		$hash = @{ Name = $entry; 
 		                   fabrikant = $bios.manufacturer;
  			                serial = $info.serialnumber;
 			                registratienaam = $info.registereduser;
 			                datum = (Get-Date);
-		                    company = 'Contoso' }
+                            company = 'Contoso';
+                            pad = $environment.Item("Path");}
 
 	$object = New-Object -TypeName psobject -Property $hash
 	$output += $object
