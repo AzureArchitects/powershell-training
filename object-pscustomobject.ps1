@@ -1,4 +1,5 @@
 
+
 # Clear the content of the textfile (if it exists)
 If (Test-Path .\dumpcomputers.txt) {
 Clear-Content .\dumpcomputers.txt
@@ -17,9 +18,9 @@ foreach($entry in $computers) {
     
 
     # Let's create a complex object with an array as a property
-    $pspath = $PSVersionTable
+    $psversions = $PSVersionTable
     $psversion = @()
-    foreach ($p in $pspath) {
+    foreach ($p in $psversions) {
         
         $psobject = [pscustomobject]@{
             PSVersie = $p.PSVersion
