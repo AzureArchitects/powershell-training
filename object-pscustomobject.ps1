@@ -1,12 +1,22 @@
-Function Get-LotsOfUsefullInfo {
 
+# Clear the content of the textfile (if it exists)
+If (Test-Path .\dumpcomputers.txt) {
+Clear-Content .\dumpcomputers.txt
+}
+
+# Populate the textfile 
 $hostname = hostname
 for ($i=0;$i -lt 5; $i++) {  Add-Content .\dumpcomputers.txt $hostname }
 $computers = Get-Content .\dumpcomputers.txt
+
+# Instantiate the array for the objects
 $output = @();
 
+# Loop through all $computers in $hostname file
 foreach($entry in $computers) {
     
+
+    # Let's create a complex object with an array as a property
     $pspath = $PSVersionTable
     $psversion = @()
     foreach ($p in $pspath) {
@@ -21,10 +31,12 @@ foreach($entry in $computers) {
     } 
    
     
+    # Collect other info
 	$info = Get-WmiObject -Class Win32_OperatingSystem -Computername $entry
 	$bios = Get-WmiObject -Class Win32_Bios -Computername $entry
 	   
        
+    # create the object for reporting
     $object = [pscustomobject]@{
                             fabrikant = $bios.manufacturer;
  			                serial = $info.serialnumber;
@@ -37,6 +49,4 @@ foreach($entry in $computers) {
 	$output += $object
     }
 
-    write-output $output 
-
-}
+$output | Export-Csv dump2.csv
