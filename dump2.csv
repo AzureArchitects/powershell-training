@@ -1,4 +1,0 @@
-#TYPE System.Management.Automation.PSCustomObject
-"hostname","os","fabrikant","serial","registratienaam","datum","company","powershell"
-"AD01","Microsoft Windows Server 2016 Technical Preview 4","Parallels Software International Inc.","00133-32500-02427-AA927","Windows User","6-4-2016 10:27:27","Contoso","System.Object[]"
-"WEB01","Microsoft Windows Server 2016 Technical Preview 4","Parallels Software International Inc.","00133-32500-02427-AA927","Windows User","6-4-2016 10:27:28","Contoso","System.Object[]"
