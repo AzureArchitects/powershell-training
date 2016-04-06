@@ -1,21 +1,11 @@
 
-
-# Clear the content of the textfile (if it exists)
-If (Test-Path .\dumpcomputers.txt) {
-Clear-Content .\dumpcomputers.txt
-}
-
-# Populate the textfile 
-
 [string]$hostname = hostname
 $adpcArray = @()
 $adpc = Get-ADComputer -Filter * | Select Name
 $adpc | % { $adpcArray += $_.Name }
 $adpcList = {$adpcArray}.Invoke()
 $adpcList.Remove($hostname.ToUpper())
- 
 
-#$computers = Get-Content .\dumpcomputers.txt
 $computers = $adpcList
 
 
