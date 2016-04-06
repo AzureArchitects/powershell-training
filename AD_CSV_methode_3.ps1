@@ -1,4 +1,6 @@
-﻿$users = Import-Csv -Path .\export.csv -Delimiter ";"
+#rename the columns in this csv so that they match the proper AD attribute names
+
+$users = Import-Csv -Path .\export.csv -Delimiter ";"
 
 
 foreach ($user  in $users){
