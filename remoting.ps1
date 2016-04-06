@@ -1,19 +1,21 @@
 
-[string]$hostname = hostname
-$adpcArray = @()
-$adpc = Get-ADComputer -Filter * | Select Name
-$adpc | % { $adpcArray += $_.Name }
-$adpcList = {$adpcArray}.Invoke()
-$adpcList.Remove($hostname.ToUpper())
+Function Get-Info {
 
-$computers = $adpcList
+  [string]$hostname = hostname
+  $adpcArray = @()
+  $adpc = Get-ADComputer -Filter * | Select Name
+  $adpc | foreach-object { $adpcArray += $_.Name }
+  $adpcList = {$adpcArray}.Invoke()
+  $adpcList.Remove($hostname.ToUpper()) | Out-Null
+
+  $computers = $adpcList
 
 
-# Instantiate the array for the objects
-$output = @();
+  # Instantiate the array for the objects
+  $output = @();
 
-# Loop through all $computers in $hostname file
-foreach($entry in $computers) {
+  # Loop through all $computers in $hostname file
+  foreach($entry in $computers) {
     
 
     # Let's create a complex object with an array as a property
@@ -32,8 +34,8 @@ foreach($entry in $computers) {
    
     
     # Collect other info
-  $info = Get-CimInstance -Classname Win32_OperatingSystem -Computername $entry
-  $bios = Get-CimInstance -Classname Win32_Bios -Computername $entry
+    $info = Get-CimInstance -Classname Win32_OperatingSystem -Computername $entry
+    $bios = Get-CimInstance -Classname Win32_Bios -Computername $entry
 	   
        
     # create the object for reporting
@@ -48,7 +50,8 @@ foreach($entry in $computers) {
                       powershell = $psversion;
     
         }
-  $output += $object
+    $output += $object
     }
+    Write-Output $output
+ }
 
-$output | Export-Csv dump2.csv

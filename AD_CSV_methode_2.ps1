@@ -8,7 +8,7 @@ $users | foreach-object {
     $thename = $_.first_name + ' ' + $_.last_name
 
     New-Aduser -Name $thename -SamAccountName $sam `
-     -AccountPassword $pwd -Enabled $true -GivenName $_.first_name -Path 'OU=USA,DC=kontoso,DC=com' 
+     -AccountPassword $pwd -Enabled $true -GivenName $_.first_name -Path 'OU=NL,DC=MDS,DC=LOCAL' 
 
 
 }

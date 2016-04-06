@@ -9,7 +9,7 @@ $users | Select-Object *,
 @{name='name';expression={$_.first_name + ' ' + $_.last_name}},
 @{name='displayName';expression={$_.first_name + ' ' + $_.last_name}},
 @{name='Company';expression={$_.company_name}},
-@{name='userPrincipalName';expression={($_.first_name.Substring(0,3) + $_.last_name.Substring(0,3)).ToLower() + '@kontoso.com'}},
+@{name='userPrincipalName';expression={($_.first_name.Substring(0,3) + $_.last_name.Substring(0,3)).ToLower() + '@mds.local'}},
 @{name='Department';expression={$_.department_name}}, 
-@{name='EmailAddress';expression={$_.email}} | New-ADUser -Enabled $true -AccountPassword $pwd -Path 'OU=USA,DC=kontoso,DC=com'  
+@{name='EmailAddress';expression={$_.email}} | New-ADUser -Enabled $true -AccountPassword $pwd -Path 'OU=NL,DC=MDS,DC=LOCAL'  
 
