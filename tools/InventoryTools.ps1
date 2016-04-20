@@ -6,32 +6,36 @@ Function Get-MDSNetInventory {
   
     [Parameter(ValueFromPipeLine=$true)]
     [string]$Computername = $env:computername
-    )
+  )
   
-    BEGIN{}
-    PROCESS{
-      $result = @()
+  BEGIN{}
+  PROCESS{
+    $result = @()
       
-      $nics = Get-CimInstance -Classname Win32_NetworkAdapterConfiguration -ComputerName $Computername
+    $nics = Get-CimInstance -Classname Win32_NetworkAdapterConfiguration -ComputerName $Computername
       
-      foreach ($n in $nics) {
-        $object = [pscustomobject]@{
-                  computername = $computerName;
-                  MacAddress = $n.MACAddress;
-                  IPAddress = $n.IPAddress;
-                  Caption = $n.Caption; 
+    foreach ($n in $nics) {
+      $object = [pscustomobject]@{
+        computername = $computerName;
+        MacAddress = $n.MACAddress;
+        IPAddress = $n.IPAddress;
+        Caption = $n.Caption; 
     
-          }
-           $result += $object
-        }
-        
-        Write-Output $result
-           
       }
+      $result += $object
+    }
+        
+    Write-Output $result
+           
+  }
       
      
-    END{}
+  END{}
 
 }
 
-Get-MDSInventory 
+# Get-MDSInventory | select-object ComputerName,IpAddress -ExpandProperty IPAddress | Export-csv trein2.csv -NoTypeInformation
+Get-MDSInventory | select-object ComputerName,MacAddress,Caption,@{n='IP';e={[string]::join('-', ($_.IPAddress))}} | Export-csv dump.csv -NoTypeInformation
+
+
+
