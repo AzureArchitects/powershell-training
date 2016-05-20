@@ -1,4 +1,4 @@
-New-Function Get-MDSCimClassProperties {
+﻿Function Get-MDSCimClassProperties {
 
     param (
 
